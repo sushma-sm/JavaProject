@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-app-service
+  namespace: demo-cluster  # Ensure this namespace exists
+spec:
+  selector:
+    app: demo-app
+  ports:
+    - protocol: TCP
+      port: 80  # Exposed service port
+      targetPort: 80  # Matching container port
+  type: LoadBalancer  # Exposes the app to external traffic
