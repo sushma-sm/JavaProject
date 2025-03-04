@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: demo-app-service
-  namespace: demo-cluster  # Ensure this namespace exists
+  namespace: autopilot-cluster-sm  # Use your cluster namespace
 spec:
   selector:
     app: demo-app
   ports:
     - protocol: TCP
-      port: 80  # Exposed service port
-      targetPort: 80  # Matching container port
-  type: LoadBalancer  # Exposes the app to external traffic
+      port: 80
+      targetPort: 80
+  type: LoadBalancer  # GKE will create an external LoadBalancer
