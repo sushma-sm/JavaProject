@@ -18,6 +18,7 @@ spec:
       containers:
         - name: demo-app
           image: "sushmamounika/my-repo-sm:latest"  # Updated Docker image repo
+          command: ["sleep", "3600"]
           imagePullPolicy: IfNotPresent  # Ensures it doesn't pull unnecessarily
           ports:
             - containerPort: 80
