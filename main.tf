@@ -1,23 +1,28 @@
 provider "google" {
   project = "devops-practice-sm"
   region  = "us-central1"
-  zone    = "us-central1-a"  # Specify the zone for VM
+  zone    = "us-central1-a"
 }
 
-# Create a VM instance
+# Generate a random ID for uniqueness
+resource "random_id" "vm_suffix" {
+  byte_length = 4
+}
+
+# Create a VM instance with a unique name
 resource "google_compute_instance" "my_vm" {
-  name         = "my-terraform-vm"
-  machine_type = "e2-medium"  # Choose your VM type
+  name         = "my-terraform-vm-${random_id.vm_suffix.hex}"
+  machine_type = "e2-medium"
   zone         = "us-central1-a"
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"  # Use a public Debian image
+      image = "debian-cloud/debian-11"
     }
   }
 
   network_interface {
-    network = "default"  # Uses the default VPC network
-    access_config {}     # Assigns a public IP
+    network = "default"
+    access_config {}
   }
 }
