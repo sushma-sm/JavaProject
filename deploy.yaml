@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app-deployment  # Updated to match your app name
+  namespace: demo-cluster  # Ensure this namespace is created
+  labels:
+    app: demo-app
+spec:
+  replicas: 2  # Keep as per your requirement
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+        - name: demo-app
+          image: "sushma-sm/demo-app"  # Updated with your image repo
+          ports:
+            - containerPort: 80  # Matching your previous deployment
