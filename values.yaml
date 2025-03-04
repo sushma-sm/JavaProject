@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: sushma-sm/demo-app  # Replace with your actual container registry if different
+  tag: "latest"  # You can specify a version if needed
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer  # Since you are using GKE, LoadBalancer is recommended
+  port: 80
+  targetPort: 80  # Your service.yaml maps to port 80 in the container
+
+container:
+  name: demo-app
+  containerPort: 80  # Matches the containerPort in deployment.yaml
