@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: demo-app-deployment
-  namespace: autopilot-cluster-sm  # Use your cluster namespace
+  namespace: autopilot-cluster-sm  # Ensure this namespace exists in GKE
   labels:
     app: demo-app
 spec:
@@ -17,6 +17,7 @@ spec:
     spec:
       containers:
         - name: demo-app
-          image: "sushma-sm/demo-app"  # Your Docker image repo
+          image: "sushmamounika/my-repo-sm:latest"  # Updated Docker image repo
+          imagePullPolicy: IfNotPresent  # Ensures it doesn't pull unnecessarily
           ports:
             - containerPort: 80
