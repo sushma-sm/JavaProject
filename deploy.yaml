@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-app-deployment  # Updated to match your app name
-  namespace: demo-cluster  # Ensure this namespace is created
+  name: demo-app-deployment
+  namespace: autopilot-cluster-sm  # Use your cluster namespace
   labels:
     app: demo-app
 spec:
-  replicas: 2  # Keep as per your requirement
+  replicas: 2
   selector:
     matchLabels:
       app: demo-app
@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: demo-app
-          image: "sushma-sm/demo-app"  # Updated with your image repo
+          image: "sushma-sm/demo-app"  # Your Docker image repo
           ports:
-            - containerPort: 80  # Matching your previous deployment
+            - containerPort: 80
