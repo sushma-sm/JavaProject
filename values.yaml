@@ -1,15 +1,13 @@
-replicaCount: 1
+replicaCount: 2
 
 image:
-  repository: sushma-sm/demo-app  # Replace with your actual container registry if different
-  tag: "latest"  # You can specify a version if needed
+  repository: sushma-sm/demo-app
+  tag: latest
   pullPolicy: IfNotPresent
 
 service:
-  type: LoadBalancer  # Since you are using GKE, LoadBalancer is recommended
+  type: LoadBalancer
   port: 80
-  targetPort: 80  # Your service.yaml maps to port 80 in the container
+  targetPort: 80
 
-container:
-  name: demo-app
-  containerPort: 80  # Matches the containerPort in deployment.yaml
+namespace: autopilot-cluster-sm  # Your GKE Namespace
