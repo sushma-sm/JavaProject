@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: sushma-sm/demo-app
+  repository: sushmamounika/my-repo-sm  # Updated to your correct Docker repo
   tag: latest
   pullPolicy: IfNotPresent
 
