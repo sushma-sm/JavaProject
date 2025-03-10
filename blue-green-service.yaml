@@ -1,13 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: blue-green-service
+  name: blue-green-service  # The name of the primary service
 spec:
-  type: LoadBalancer
+  type: LoadBalancer  # Exposes the service externally with a public IP address
   selector:
-    app: blue
-    harness.io/color: primary  # Required for Blue-Green Deployment
+    app: blue  # Targets pods labeled with "app: blue" (current running version)
+    harness.io/color: primary  # Required for Blue-Green Deployment to mark it as the primary service
   ports:
-    - port: 80
-      targetPort: 8080
- # Service is used for traffic switching
+    - port: 80  # The port on which the service will be exposed
+      targetPort: 8080  # The port on which the container is running inside the pod
