@@ -1,23 +1,66 @@
+# kubectl patch service blue-green-service -p '{"spec":{"selector":{"app":"green"}}}'
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-app-deployment
-  namespace: autopilot-cluster-sm  # Ensure this namespace exists in GKE
-  labels:
-    app: demo-app
+  name: blue-deployment
 spec:
-  replicas: 2
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
-      app: demo-app
+      app: blue
   template:
     metadata:
       labels:
-        app: demo-app
+        app: blue
     spec:
       containers:
-        - name: demo-app
-          image: "sushmamounika/my-repo-sm:latest"  # Updated Docker image repo
-          imagePullPolicy: IfNotPresent  # Ensures it doesn't pull unnecessarily
-          ports:
-            - containerPort: 80
+      - name: lgwm-image
+        image: gcr.io/google-samples/hello-app:1.0
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green-deployment
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: green
+  template:
+    metadata:
+      labels:
+        app: green
+    spec:
+      containers:
+      - name: lgwm-image
+        image: gcr.io/google-samples/hello-app:2.0
+        ports:
+        - containerPort: 8080
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blue-green-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: blue
+  ports:
+  - port: 80
+    targetPort: 8080
