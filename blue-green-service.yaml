@@ -5,8 +5,9 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: blue   # Initially pointing to blue
+    app: blue
+    harness.io/color: primary  # Required for Blue-Green Deployment
   ports:
-  - port: 80
-    targetPort: 8080
-# Service is used for traffic switching
+    - port: 80
+      targetPort: 8080
+ # Service is used for traffic switching
