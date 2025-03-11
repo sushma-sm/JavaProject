@@ -6,7 +6,7 @@ spec:
   type: LoadBalancer  # Exposes the service externally with a public IP address
   selector:
     app: green  # Targets pods labeled with "app: green"
-    harness.io/color: stage  # Label used for Blue-Green Deployment to distinguish between stages
+    harness.io/color: green  # Label used for Blue-Green Deployment to distinguish between stages
   ports:
     - port: 80  # The port on which the service is exposed
       targetPort: 8080  # The port on which the container is running inside the pod
