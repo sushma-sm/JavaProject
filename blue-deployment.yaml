@@ -1,61 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blue-deployment
+  name: blue-deployment  # The name of the deployment to identify it within the cluster
   labels:
-    app: my-app
-    version: blue
+    app: blue  # Label to categorize and group this deployment
+
 spec:
-  replicas: 3
+  replicas: 4  # Number of pod replicas to maintain at all times
   selector:
     matchLabels:
-      app: my-app
-      version: blue
+      app: blue  # Ensures the deployment manages pods with this label
+
   template:
     metadata:
       labels:
-        app: my-app
-        version: blue
+        app: blue  # Label applied to pods created by this deployment
+
     spec:
       containers:
-        - name: my-app
-          image: nginx:1.19
-          ports:
-            - containerPort: 8080
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: green-deployment
-  labels:
-    app: my-app
-    version: green
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: my-app
-      version: green
-  template:
-    metadata:
-      labels:
-        app: my-app
-        version: green
-    spec:
-      containers:
-        - name: my-app
-          image: nginx:1.20
-          ports:
-            - containerPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: blue-green-service
-spec:
-  type: ClusterIP
-  ports:
-    - port: 80
-      targetPort: 8080
-  selector:
-    app: my-app
+      - name: hello-app  # Name of the container running inside the pod
+        image: gcr.io/google-samples/hello-app:1.0  # Docker image used for the application
+        ports:
+        - containerPort: 8080  # Exposes the container on port 8080 for incoming traffic
