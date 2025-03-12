@@ -1,14 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: v1-deployment
+  name: canary-deployment
+  labels:
+    app: canary
 spec:
-  replicas: 4
+  replicas: 4  # Total number of replicas to be deployed in phases
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+      maxSurge: 1   # Maximum number of additional pods during an update
+      maxUnavailable: 0  # Ensures no downtime
   selector:
     matchLabels:
       app: canary
@@ -16,48 +18,26 @@ spec:
     metadata:
       labels:
         app: canary
+        harness.io/color: canary  # Used for distinguishing the canary version
     spec:
       containers:
-      - name: lgwm-image
-        image: gcr.io/google-samples/hello-app:1.0
-        ports:
-        - containerPort: 8080
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: v2-deployment
-spec:
-  replicas: 4
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-  selector:
-    matchLabels:
-      app: canary
-  template:
-    metadata:
-      labels:
-        app: canary
-    spec:
-      containers:
-      - name: lgwm-image
-        image: gcr.io/google-samples/hello-app:2.0
-        ports:
-        - containerPort: 8080
+        - name: hello-app
+          image: gcr.io/google-samples/hello-app:2.0  # Canary version
+          ports:
+            - containerPort: 8080
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: canary-service
-spec:
-  type: LoadBalancer
-  selector:
+  labels:
     app: canary
+spec:
+  selector:
+    app: canary  # Targets pods with this label
   ports:
-  - port: 80
-    targetPort: 8080
+    - protocol: TCP
+      port: 80      # Exposes the service on port 80
+      targetPort: 8080  # Maps to the container port
+  type: LoadBalancer  # Exposes the service externally
