@@ -1,13 +1,13 @@
-replicaCount: 2
-
-image:
-  repository: sushmamounika/my-repo-sm  # Updated to your correct Docker repo
-  tag: latest
-  pullPolicy: IfNotPresent
-
-service:
-  type: LoadBalancer
-  port: 80
-  targetPort: 80
-
-namespace: autopilot-cluster-sm  # Your GKE Namespace
+grafana:
+  enabled: true
+alertmanager:
+  enabled: true
+prometheus:
+  prometheusSpec:
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
