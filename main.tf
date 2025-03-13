@@ -1,13 +1,13 @@
 resource "google_container_cluster" "monitoring_cluster" {
-  name     = var.monitoring_cluster_name
-  location = var.monitoring_region
+  name     = var.cluster_name
+  location = var.region
 
   deletion_protection = false
 
-  initial_node_count = var.monitoring_node_count
+  initial_node_count = var.node_count
 
   node_config {
-    machine_type = var.monitoring_machine_type
+    machine_type = var.node_machine_type
     disk_size_gb = 70
   }
 
