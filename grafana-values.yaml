@@ -1,7 +1,6 @@
-adminUser: admin
-adminPassword: admin123
-persistence:
-  enabled: true
-  size: 10Gi
 service:
   type: LoadBalancer
+  port: 3000
+
+adminUser: admin
+adminPassword: admin
