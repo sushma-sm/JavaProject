@@ -29,7 +29,7 @@ resource "helm_release" "prometheus" {
   version    = "51.2.0"
 
   values = [
-    file("prometheus-values.yaml")
+    file("Prometheus-values.yaml")
   ]
 }
 
