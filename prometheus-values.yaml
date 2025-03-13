@@ -1,13 +1,3 @@
-grafana:
-  enabled: true
-alertmanager:
-  enabled: true
-prometheus:
-  prometheusSpec:
-    storageSpec:
-      volumeClaimTemplate:
-        spec:
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 10Gi
+service:
+  type: LoadBalancer
+  port: 9090
