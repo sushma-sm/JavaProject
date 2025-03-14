@@ -3,7 +3,7 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "4.80.0"
+      version = "4.80.0"  # Verified compatible version
     }
     random = {
       source  = "hashicorp/random"
@@ -11,15 +11,16 @@ terraform {
     }
     utils = {
       source  = "cloudposse/utils"
-      version = "1.18.0"  # Critical addition to resolve the error
+      version = "1.18.0"  # Required for deep_merge_yaml
     }
   }
 }
 
 provider "google" {
-  project = var.project_id
-  region  = "us-east5"    # Matches region without zone suffix
-  zone    = "us-east5-b"  # Zone specification is correct here
+  project     = var.project_id
+  region      = var.region
+  zone        = var.zone
+  credentials = var.gcp_credentials  # Reference to credentials variable
 }
 
 provider "random" {}
