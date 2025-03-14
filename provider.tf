@@ -14,7 +14,8 @@ terraform {
 
 provider "google" {
   project = var.project_id
-  region  = var.region
+  region  = "us-east5"  # Updated to match the cluster region
+  zone    = "us-east5-b"  # Added zone to specify the cluster location accurately
 }
 
 provider "random" {}
