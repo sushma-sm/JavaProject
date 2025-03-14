@@ -1,6 +1,6 @@
 resource "google_container_cluster" "monitoring_cluster" {
   name     = var.cluster_name
-  location = var.region
+  location = var.zone  # Changed from var.region to var.zone
 
   initial_node_count = var.node_count
 
