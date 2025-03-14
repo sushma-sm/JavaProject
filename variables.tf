@@ -4,28 +4,20 @@ variable "project_id" {
   default     = "devops-practice-sm"
 }
 
-# Changed from "us-east5-b" (zone) to "us-east5" (region)
 variable "region" {
   description = "The GCP region (not zone)"
   type        = string
-  default     = "us-east5"  # Region without zone suffix
+  default     = "us-east5"
 }
 
-# New variable for zone specification
 variable "zone" {
   description = "The GCP zone"
   type        = string
-  default     = "us-east5-b"  # Specific zone
+  default     = "us-east5-b"
 }
 
 variable "cluster_name" {
   description = "The name of the existing Kubernetes cluster"
   type        = string
   default     = "cluster-6"
-}
-
-variable "gcp_credentials" {
-  description = "GCP service account credentials (JSON)"
-  type        = string
-  sensitive   = true
 }
