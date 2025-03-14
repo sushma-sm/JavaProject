@@ -2,8 +2,8 @@
 data "google_client_config" "sm_default" {}
 
 data "google_container_cluster" "sm_gke_cluster" {
-  name     = var.cluster_name
-  location = var.region
+  name     = "cluster-6"  # Updated to use your existing cluster name
+  location = "us-east5-b" # Updated to use your existing cluster location
 }
 
 # Kubernetes Provider using GKE authentication
