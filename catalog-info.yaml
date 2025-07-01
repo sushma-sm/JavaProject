@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sample-service
+  description: A sample service for IDP demo
+  tags:
+    - java
+    - backend
+spec:
+  type: service
+  lifecycle: production
+  owner: sushma-team
